@@ -12,27 +12,6 @@ pub struct TracedResult<T, E> {
 }
 
 impl<T, E> TracedResult<T, E> {
-    pub fn from_output(value: T) -> Self {
-        Self {
-            result: Ok(value),
-            trace: Vec::new(),
-        }
-    }
-
-    pub fn from_error(error: E) -> Self {
-        Self {
-            result: Err(error),
-            trace: vec![Location::caller()],
-        }
-    }
-
-    pub fn from_result(result: Result<T, E>) -> Self {
-        match result {
-            Ok(value) => Self::from_output(value),
-            Err(error) => Self::from_error(error),
-        }
-    }
-
     pub fn handle(self) -> Result<T, (E, Vec<&'static Location<'static>>)> {
         match self.result {
             Ok(value) => Ok(value),

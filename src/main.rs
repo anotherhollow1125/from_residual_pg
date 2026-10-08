@@ -1,4 +1,7 @@
+#![feature(try_trait_v2)]
+
 use from_residual_pg::TracedResult;
+use std::ops::Try;
 
 fn bottom() -> TracedResult<(), &'static str> {
     Err("something went wrong")?;
